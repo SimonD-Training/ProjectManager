@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { projectI, template_project } from '../interfaces/project';
+import { projectI } from '../interfaces/project';
 
 @Injectable({
   providedIn: 'root',
