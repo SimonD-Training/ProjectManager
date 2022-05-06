@@ -1,0 +1,60 @@
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: calc(100vh - 75px);
+    height: fit-content;
+}
+
+main .neck {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+}
+main .neck input {
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+main .neck input:focus {
+    outline: none;
+}
+main span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+}
+main .neck .btn {
+    transition: font-size 0.25s linear;
+}
+main .neck .btn:hover {
+    border-bottom: 1px solid black;
+}
+main .chest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: calc(100vh - 150px);
+}
+main .chest .sidebar {
+    width: 20%;
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
+}
+main .chest .sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+main .chest .mainbar {
+    width: 80%;
+    height: calc(calc(100vh - 150px) * 0.8);
+    transition: all 0.25s linear;
+}
+
+.breadcrumb {
+    width: fit-content;
+}

@@ -1,1 +1,50 @@
 /* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap Custom file. */
+@import "./custom-bootstrap";
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+textarea {
+    resize: none;
+}
+textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.dead {
+    pointer-events: none;
+}
+
+.abs-top {
+    top: 0;
+}
+.abs-bot {
+    bottom: 0;
+}
+.abs-left {
+    left: 0;
+}
+.abs-right {
+    right: 0;
+}
+.abs-top-max {
+    top: 100%;
+}
+.abs-bot-max {
+    bottom: 100%;
+}
+.abs-left-max {
+    left: 100%;
+}
+.abs-right-max {
+    right: 100%;
+}
+
+.grow {
+    flex-grow: 1;
+}

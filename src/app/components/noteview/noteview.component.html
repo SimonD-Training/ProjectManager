@@ -1,0 +1,407 @@
+<ngb-toast
+  #toast
+  *ngIf="show"
+  class="position-absolute toast-body bottom-0 end-0 m-2 bg-danger text-light"
+>
+  <div class="d-flex">
+    <span> Request to server failed. </span>
+  </div>
+</ngb-toast>
+<app-header></app-header>
+<main [class]="['px-5', 'pt-4', darkmode ? 'bg-dark' : 'bg-light']">
+  <div [class]="['neck', 'fs-5', darkmode ? 'text-light' : 'text-dark']">
+    <span [class]="[darkmode ? 'text-light' : 'text-secondary', 'breadcrumb']"
+      ><a href="/">Projects</a>/<b>{{ project.project_title }}</b></span
+    >
+    <span>
+      <span
+        [class]="[
+          'mx-4',
+          'btn',
+          'fs-5',
+          darkmode ? 'text-light' : 'text-secondary',
+          darkmode ? 'btn-dark' : 'btn-light'
+        ]"
+        (click)="open(modal2)"
+        >Add Note</span
+      >
+      <ng-template #modal2 #modal let-modal>
+        <div
+          [class]="[
+            'modal-header',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <h4
+            [class]="[
+              'modal-title',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'bg-dark' : 'bg-light'
+            ]"
+            id="modal-basic-title"
+          >
+            Anotation
+          </h4>
+          <button
+            type="button"
+            [class]="[
+              'btn-close',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'btn-close-dark' : 'btn-close-light'
+            ]"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <div
+          [class]="[
+            'modal-body',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <form
+            #form="ngForm"
+            id="createproject"
+            [class]="[
+              'fs-5',
+              'h-100',
+              'd-flex',
+              'flex-row',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+          >
+            <textarea
+              class="w-100 my-3 h-100 fs-6"
+              name="note"
+              required
+              ngModel
+            ></textarea>
+          </form>
+        </div>
+        <div
+          [class]="[
+            'modal-footer',
+            'd-flex',
+            'flex-column',
+            'justify-content-center',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <button
+            [class]="[
+              'btn',
+              'fs-4',
+              darkmode ? 'text-light' : 'text-dark',
+              darkmode ? 'btn-dark' : 'btn-light'
+            ]"
+            (click)="createNote(form); modal.dismiss()"
+          >
+            Submit
+          </button>
+        </div>
+      </ng-template>
+      <span
+        [class]="[
+          'mx-4',
+          'btn',
+          'fs-5',
+          darkmode ? 'text-light' : 'text-secondary',
+          darkmode ? 'btn-dark' : 'btn-light'
+        ]"
+        (click)="open(modal3)"
+        >Edit Project</span
+      >
+      <ng-template #modal3 #modal let-modal>
+        <div
+          [class]="[
+            'modal-header',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <h4
+            [class]="[
+              'modal-title',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'bg-dark' : 'bg-light'
+            ]"
+            id="modal-basic-title"
+          >
+            Project Update
+          </h4>
+          <button
+            type="button"
+            [class]="[
+              'btn-close',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'btn-close-dark' : 'btn-close-light'
+            ]"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <div
+          [class]="[
+            'modal-body',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <form
+            #form="ngForm"
+            id="createproject"
+            [class]="[
+              'fs-5',
+              'h-100',
+              'd-flex',
+              'flex-row',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+          >
+            <div class="w-50 d-flex flex-column">
+              <span class="my-3"
+                >Title:<input type="text" name="title" required [(ngModel)]="project.project_title"
+              /></span>
+              <span class="my-3"
+                >Start Date:<input
+                  type="date"
+                  name="start"
+                  [min]="datetime.now().toISOString().slice(0, 10)"
+                  required
+                  [ngModel]="project.project_start_dt | date:'yyyy-MM-dd'" (ngModelChange)="project.project_start_dt = $event"
+              /></span>
+              <span class="my-3"
+                >Due Date:<input
+                  type="date"
+                  [min]="datetime.now().toISOString().slice(0, 10)"
+                  name="due"
+                  required
+                  [ngModel]="project.project_due_dt | date:'yyyy-MM-dd'" (ngModelChange)="project.project_due_dt = $event"
+              /></span>
+            </div>
+            <div class="w-50 d-flex flex-column">
+              <span class="w-100 my-3">Desc.:</span>
+              <textarea
+                class="w-100 my-3 h-100 fs-6"
+                name="description"
+                required
+                [(ngModel)]="project.project_description"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div
+          [class]="[
+            'modal-footer',
+            'd-flex',
+            'flex-column',
+            'justify-content-center',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <button
+            [class]="[
+              'btn',
+              'fs-4',
+              darkmode ? 'text-light' : 'text-dark',
+              darkmode ? 'btn-dark' : 'btn-light'
+            ]"
+            (click)="editProject(form); modal.dismiss()"
+          >
+            Submit
+          </button>
+        </div>
+      </ng-template>
+      <span
+        [class]="[
+          'mx-4',
+          'btn',
+          'fs-5',
+          'text-danger',
+          darkmode ? 'btn-dark' : 'btn-light'
+        ]"
+        (click)="open(modal)"
+        >Delete Project</span
+      >
+      <ng-template #modal let-modal>
+        <div
+          [class]="[
+            'modal-header',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <h4
+            [class]="[
+              'modal-title',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'bg-dark' : 'bg-light'
+            ]"
+            id="modal-basic-title"
+          >
+            Project Deletion
+          </h4>
+          <button
+            type="button"
+            [class]="[
+              'btn-close',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'btn-close-dark' : 'btn-close-light'
+            ]"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <div
+          [class]="[
+            'modal-body',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <h2>Are you sure?</h2>
+        </div>
+        <div
+          [class]="[
+            'modal-footer',
+            'd-flex',
+            'flex-column',
+            'justify-content-center',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <button
+            [class]="[
+              'btn',
+              'fs-4',
+              'text-danger',
+              darkmode ? 'btn-dark' : 'btn-light'
+            ]"
+            (click)="deleteProject(); modal.dismiss()"
+          >
+            Delete
+          </button>
+        </div>
+      </ng-template>
+      <span
+        [class]="[
+          'border-bottom',
+          'border-1',
+          darkmode ? 'border-secondary' : 'border-dark'
+        ]"
+      >
+        <input
+          class="{{ darkmode ? 'text-light' : 'text-dark' }}"
+          type="text"
+          name=""
+          id=""
+        />
+        <fa-icon [icon]="search"></fa-icon>
+      </span>
+    </span>
+  </div>
+  <div class="chest flex-row align-items-end">
+    <nav
+      [hidden]="!Notes"
+      ngbNav
+      [(activeId)]="active"
+      #nav="ngbNav"
+      [class]="[
+        'sidebar',
+        darkmode ? 'navbar-dark' : 'navbar-light',
+        darkmode ? 'bg-dark' : 'bg-light',
+        'flex-column-reverse',
+        'justify-content-end',
+        'p-2'
+      ]"
+    >
+      <li
+        [ngbNavItem]="ind"
+        *ngFor="let note of Notes?.slice(1, Notes?.length); let ind = index"
+      >
+        <a
+          ngbNavLink
+          [class]="[
+            'text-start',
+            'fs-5',
+            darkmode ? 'text-light' : 'text-secondary'
+          ]"
+        >
+          View Entry {{ ind + 2 }}
+        </a>
+        <ng-template ngbNavContent>
+          <span
+            [class]="[
+              'badge',
+              'rounded-circle',
+              darkmode ? 'bg-dark' : 'bg-secondary',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+            >{{ ind + 2 }}</span
+          >
+          <b class="fs-3">{{ datetime.tocalendar(note.active_date) }}</b>
+          <hr />
+          <p *ngFor="let paragraph of note.notes.split('\n')">
+            {{ paragraph }}
+          </p>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="1">
+        <a
+          ngbNavLink
+          [class]="[
+            'text-start',
+            'fs-5',
+            darkmode ? 'text-light' : 'text-secondary'
+          ]"
+          >View Entry 1</a
+        >
+        <ng-template ngbNavContent>
+          <span
+            [class]="[
+              'badge',
+              'rounded-circle',
+              darkmode ? 'bg-dark' : 'bg-secondary',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+            >1</span
+          >
+          <b class="fs-3">{{ datetime.tocalendar(Notes![0].active_date) }}</b>
+          <hr />
+          <p *ngFor="let paragraph of Notes![0].notes?.split('\n')">
+            {{ paragraph }}
+          </p>
+        </ng-template>
+      </li>
+      <a class="navbar-brand fs-4 w-100 text-start dead">Log Data</a>
+    </nav>
+    <div
+      *ngIf="Notes"
+      [ngbNavOutlet]="nav"
+      [class]="[
+        'mainbar',
+        darkmode ? 'bg-dark' : 'bg-white',
+        darkmode ? 'text-light' : 'text-dark',
+        'flex-column',
+        'p-2',
+        'my-2',
+        'border',
+        'border-1'
+      ]"
+    ></div>
+    <span
+      *ngIf="!Notes"
+      [class]="[
+        'w-100',
+        'h-100',
+        'fw-lighter',
+        'fs-1',
+        darkmode ? 'text-light' : 'text-secondary'
+      ]"
+    >
+      No Notes
+    </span>
+  </div>
+</main>

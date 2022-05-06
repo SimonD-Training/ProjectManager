@@ -1,0 +1,21 @@
+CREATE SCHEMA `project_manager` ;
+CREATE TABLE `project_manager`.`projects` (
+  `project_id` INT NOT NULL AUTO_INCREMENT,
+  `project_title` VARCHAR(64) NOT NULL,
+  `project_description` VARCHAR(2500) NOT NULL,
+  `project_start_dt` DATETIME NOT NULL,
+  `project_due_dt` DATETIME NOT NULL,
+  PRIMARY KEY (`project_id`));
+CREATE TABLE `project_manager`.`notes` (
+  `note_id` INT NOT NULL AUTO_INCREMENT,
+  `project_id` INT NOT NULL,
+  `notes` VARCHAR(2500) NOT NULL,
+  `active_date` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`note_id`),
+  INDEX `project_id` (`project_id` ASC) VISIBLE);
+ALTER TABLE `project_manager`.`notes` 
+ADD CONSTRAINT `project_project_id`
+  FOREIGN KEY (`project_id`)
+  REFERENCES `project_manager`.`projects` (`project_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;

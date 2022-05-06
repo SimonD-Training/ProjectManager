@@ -1,0 +1,177 @@
+<ngb-toast
+  #toast
+  *ngIf="show"
+  class="position-absolute toast-body bottom-0 end-0 m-2 bg-danger text-light"
+>
+  <div class="d-flex">
+    <span> Request to server failed. </span>
+  </div>
+</ngb-toast>
+<app-header></app-header>
+<main [class]="['px-5', 'pt-4', darkmode ? 'bg-dark' : 'bg-light']">
+  <div [class]="['neck', 'fs-4', darkmode ? 'text-light' : 'text-dark']">
+    <span
+      [class]="['fw-bold', 'dead', darkmode ? 'text-light' : 'text-secondary']"
+      >Projects</span
+    >
+    <span>
+      <span
+        [class]="[
+          'mx-4',
+          'btn',
+          'fs-5',
+          darkmode ? 'text-light' : 'text-secondary',
+          darkmode ? 'btn-dark' : 'btn-light'
+        ]"
+        (click)="open(modal)"
+        >Create Project</span
+      >
+      <ng-template #modal let-modal>
+        <div
+          [class]="[
+            'modal-header',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <h4
+            [class]="[
+              'modal-title',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'bg-dark' : 'bg-light'
+            ]"
+            id="modal-basic-title"
+          >
+            Project Creation
+          </h4>
+          <button
+            type="button"
+            [class]="[
+              'btn-close',
+              darkmode ? 'text-light' : 'text-secondary',
+              darkmode ? 'btn-close-dark' : 'btn-close-light'
+            ]"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          ></button>
+        </div>
+        <div
+          [class]="[
+            'modal-body',
+            darkmode ? 'text-light' : 'text-secondary',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <form
+            #form="ngForm"
+            id="createproject"
+            [class]="[
+              'fs-5',
+              'h-100',
+              'd-flex',
+              'flex-row',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+          >
+            <div class="w-50 d-flex flex-column">
+              <span class="my-3"
+                >Title:<input type="text" name="title" required ngModel
+              /></span>
+              <span class="my-3"
+                >Start Date:<input
+                  type="date"
+                  name="start"
+                  [min]="datetime.now().toISOString().slice(0, 10)"
+                  required
+                  ngModel
+              /></span>
+              <span class="my-3"
+                >Due Date:<input
+                  type="date"
+                  [min]="datetime.now().toISOString().slice(0, 10)"
+                  name="due"
+                  required
+                  ngModel
+              /></span>
+            </div>
+            <div class="w-50 d-flex flex-column">
+              <span class="w-100 my-3">Desc.:</span>
+              <textarea
+                class="w-100 my-3 h-100 fs-6"
+                name="description"
+                required
+                ngModel
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div
+          [class]="[
+            'modal-footer',
+            'd-flex',
+            'flex-column',
+            'justify-content-center',
+            darkmode ? 'bg-dark' : 'bg-light'
+          ]"
+        >
+          <button
+            [class]="[
+              'btn',
+              'fs-4',
+              darkmode ? 'text-light' : 'text-dark',
+              darkmode ? 'btn-dark' : 'btn-light'
+            ]"
+            (click)="createProject(form); modal.dismiss()"
+          >
+            Submit
+          </button>
+        </div>
+      </ng-template>
+      <span
+        [class]="[
+          'border-bottom',
+          'border-1',
+          darkmode ? 'border-secondary' : 'border-dark'
+        ]"
+      >
+        <input
+          class="{{ darkmode ? 'text-light' : 'text-dark' }}"
+          type="text"
+          name=""
+          id=""
+        />
+        <fa-icon [icon]="search"></fa-icon>
+      </span>
+    </span>
+  </div>
+  <div class="chest">
+    <ngb-accordion [closeOthers]="true" class="w-100" #acc="ngbAccordion">
+      <ngb-panel
+        *ngFor="let project of Projects"
+        title="{{ project.project_title }}"
+      >
+        <ng-template ngbPanelContent>
+          <div
+            class="badge bg-success"
+            (click)="setProject(project)"
+            style="cursor: pointer"
+          >
+            Open
+          </div>
+          {{ project.project_description }}
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+    <span
+      *ngIf="!Projects"
+      [class]="[
+        'grow',
+        'fw-lighter',
+        'fs-1',
+        darkmode ? 'text-light' : 'text-secondary'
+      ]"
+    >
+      No Projects
+    </span>
+  </div>
+</main>

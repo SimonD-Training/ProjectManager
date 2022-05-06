@@ -1,0 +1,13 @@
+<header [class]="['px-3', 'border-bottom', 'border-2', darkmode ? 'border-secondary' : 'border-dark', darkmode ? 'bg-dark' : 'bg-light']">
+  <span [class]="['fs-1', 'fw-lighter', darkmode ? 'text-light' : 'text-secondary', 'dead']"
+    >Project Manager <fa-icon [icon]="listCheck"></fa-icon>
+  </span>
+  <div ngbDropdown placement="right" #drop="ngbDropdown">
+    <fa-icon
+    [icon]="cog"
+    (click)="drop.open()"
+    [class]="['fs-2', 'btn', darkmode ? 'btn-dark' : 'btn-light']"
+  ></fa-icon>
+    <div ngbDropdownMenu class="abs-top-max abs-right"></div>
+  </div>
+</header>
