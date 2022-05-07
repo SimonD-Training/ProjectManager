@@ -48,6 +48,7 @@ router.post("/get/:table", (req, res) => {
 
 router.post("/projects", (req, res) => {
   let { title, description, start, due } = req.body;
+  description = description.split("\n").join('\n');
   database.query(
     `INSERT INTO projects (project_title, project_description, project_start_dt, project_due_dt) VALUES ('${title}', '${description}', '${start}', '${due}')`,
     (err) => {
@@ -61,6 +62,7 @@ router.post("/projects", (req, res) => {
 
 router.put("/projects", (req, res) => {
   let { id, title, description, due } = req.body;
+  description = description.split("\n").join('\n');
   database.query(
     `UPDATE projects SET project_title = '${title}', project_description = '${description}', project_due_dt = '${due}' WHERE project_id = ${id}`,
     (err) => {
@@ -74,6 +76,7 @@ router.put("/projects", (req, res) => {
 
 router.post("/notes", (req, res) => {
   let { id, note, date } = req.body;
+  note = note.split("\n").join(' ');
   database.query(
     `INSERT INTO notes (project_id, notes, active_date) VALUES (${id}, '${note}', '${date.slice(0, date.length - 1)}')`,
     (err) => {
