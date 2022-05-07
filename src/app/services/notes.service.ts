@@ -16,6 +16,7 @@ export class NotesService {
       this.http
         .post<notesI[] | null>(`/get/notes/project_id/?value=${this.project.project_id}`, null, { observe: 'response' })
         .subscribe({ next: (value) => {
+          console.log(value.body);
           observer.next(value.body);
         }, error: (err) => {
           console.log(err);

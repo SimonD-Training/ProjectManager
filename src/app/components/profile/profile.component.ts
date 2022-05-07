@@ -5,6 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { projectI } from 'src/app/interfaces/project';
 import { DatetimeService } from 'src/app/services/datetime.service';
+import { ForceCookiesService } from 'src/app/services/force-cookies.service';
 import { NotesService } from 'src/app/services/notes.service';
 import { PreferenceService } from 'src/app/services/preference.service';
 import { ProjectsService } from 'src/app/services/projects.service';
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
     private projects: ProjectsService,
     private notes: NotesService,
     public datetime: DatetimeService,
+    private fcookies: ForceCookiesService,
     private modalService: NgbModal
   ) {}
 
@@ -43,7 +45,7 @@ export class ProfileComponent implements OnInit {
   }
 
   setProject(project: projectI) {
-    this.notes.project = project;
+    this.fcookies.setCookie("active_project", JSON.stringify(project), 1);
     this.router.navigate(['/notes']);
   }
   createProject(project_submission: NgForm) {

@@ -162,7 +162,11 @@
           >
             <div class="w-50 d-flex flex-column">
               <span class="my-3"
-                >Title:<input type="text" name="title" required [(ngModel)]="project.project_title"
+                >Title:<input
+                  type="text"
+                  name="title"
+                  required
+                  [(ngModel)]="project.project_title"
               /></span>
               <span class="my-3"
                 >Start Date:<input
@@ -170,7 +174,8 @@
                   name="start"
                   [min]="datetime.now().toISOString().slice(0, 10)"
                   required
-                  [ngModel]="project.project_start_dt | date:'yyyy-MM-dd'" (ngModelChange)="project.project_start_dt = $event"
+                  [ngModel]="project.project_start_dt | date: 'yyyy-MM-dd'"
+                  (ngModelChange)="project.project_start_dt = $event"
               /></span>
               <span class="my-3"
                 >Due Date:<input
@@ -178,7 +183,8 @@
                   [min]="datetime.now().toISOString().slice(0, 10)"
                   name="due"
                   required
-                  [ngModel]="project.project_due_dt | date:'yyyy-MM-dd'" (ngModelChange)="project.project_due_dt = $event"
+                  [ngModel]="project.project_due_dt | date: 'yyyy-MM-dd'"
+                  (ngModelChange)="project.project_due_dt = $event"
               /></span>
             </div>
             <div class="w-50 d-flex flex-column">
@@ -317,9 +323,36 @@
         'p-2'
       ]"
     >
+      <li [ngbNavItem]="1">
+        <a
+          ngbNavLink
+          [class]="[
+            'text-start',
+            'fs-5',
+            darkmode ? 'text-light' : 'text-secondary'
+          ]"
+          >View Entry 1</a
+        >
+        <ng-template ngbNavContent>
+          <span
+            [class]="[
+              'badge',
+              'rounded-circle',
+              darkmode ? 'bg-dark' : 'bg-secondary',
+              darkmode ? 'text-light' : 'text-dark'
+            ]"
+            >1</span
+          >
+          <b class="fs-3">{{ datetime.tocalendar(Notes![0].active_date) }}</b>
+          <hr />
+          <p *ngFor="let paragraph of Notes![0].notes?.split('\n')">
+            {{ paragraph }}
+          </p>
+        </ng-template>
+      </li>
       <li
-        [ngbNavItem]="ind"
-        *ngFor="let note of Notes?.slice(1, Notes?.length); let ind = index"
+        [ngbNavItem]="ind + 2"
+        *ngFor="let note of Notes?.slice(1, Notes!.length); let ind = index"
       >
         <a
           ngbNavLink
@@ -344,33 +377,6 @@
           <b class="fs-3">{{ datetime.tocalendar(note.active_date) }}</b>
           <hr />
           <p *ngFor="let paragraph of note.notes.split('\n')">
-            {{ paragraph }}
-          </p>
-        </ng-template>
-      </li>
-      <li [ngbNavItem]="1">
-        <a
-          ngbNavLink
-          [class]="[
-            'text-start',
-            'fs-5',
-            darkmode ? 'text-light' : 'text-secondary'
-          ]"
-          >View Entry 1</a
-        >
-        <ng-template ngbNavContent>
-          <span
-            [class]="[
-              'badge',
-              'rounded-circle',
-              darkmode ? 'bg-dark' : 'bg-secondary',
-              darkmode ? 'text-light' : 'text-dark'
-            ]"
-            >1</span
-          >
-          <b class="fs-3">{{ datetime.tocalendar(Notes![0].active_date) }}</b>
-          <hr />
-          <p *ngFor="let paragraph of Notes![0].notes?.split('\n')">
             {{ paragraph }}
           </p>
         </ng-template>

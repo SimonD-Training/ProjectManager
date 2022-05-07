@@ -6,6 +6,7 @@ import { NgbModal, NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { notesI } from 'src/app/interfaces/notes';
 import { projectI } from 'src/app/interfaces/project';
 import { DatetimeService } from 'src/app/services/datetime.service';
+import { ForceCookiesService } from 'src/app/services/force-cookies.service';
 import { NotesService } from 'src/app/services/notes.service';
 import { PreferenceService } from 'src/app/services/preference.service';
 import { ProjectsService } from 'src/app/services/projects.service';
@@ -22,10 +23,11 @@ export class NoteviewComponent implements OnInit {
   }
   public get project(): projectI {
     return this.notes.project;
-  }
+  }  
+  active = 1;
+  
 
   search = faSearch;
-  active = 1;
   show = false;
   constructor(
     private router: Router,
@@ -33,10 +35,12 @@ export class NoteviewComponent implements OnInit {
     private projects: ProjectsService,
     private notes: NotesService,
     public datetime: DatetimeService,
+    private fcookies: ForceCookiesService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.notes.project = JSON.parse(this.fcookies.getCookie("active_project"));
     this.notes.getNotes().subscribe({
       next: (value) => {
         this.Notes = value;
