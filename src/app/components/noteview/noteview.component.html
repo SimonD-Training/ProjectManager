@@ -9,9 +9,21 @@
 </ngb-toast>
 <app-header></app-header>
 <main [class]="['px-5', 'pt-4', darkmode ? 'bg-dark' : 'bg-light']">
-  <div [class]="['neck', 'fs-5', darkmode ? 'text-light' : 'text-dark']">
-    <span [class]="[darkmode ? 'text-light' : 'text-secondary', 'breadcrumb']"
-      ><a href="/">Projects</a>/<b>{{ project.project_title }}</b></span
+  <div
+    [class]="[
+      'neck',
+      'fs-5',
+      darkmode ? 'text-light' : 'text-dark',
+      'd-flex',
+      'align-items-center'
+    ]"
+  >
+    <span [class]="[darkmode ? 'text-light' : 'text-secondary']"
+      ><a href="/">Projects</a>/
+        <b>{{ project.project_title + " :" }}&numsp;</b>
+        <span class="text-success">{{project.project_start_dt.slice(2, 10)}}</span>
+        <span class="text-danger">&numsp;{{ "DUE: " + project.project_due_dt.slice(2, 10)}}</span>
+      </span
     >
     <span>
       <span
