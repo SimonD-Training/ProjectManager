@@ -1,7 +1,7 @@
 # ProjectManager
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.0. with an Express.js backend for a training exercise.
-Run the `app.js` file in `src/app/backend` with a functional database described in the `.env`
+Run the `app.js` file in `src/app/backend` with a functional database described in the `.env` after creating your `dist` folder with `ng build`
 
 ## Development server
 
