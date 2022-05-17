@@ -10,10 +10,10 @@ const port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Listening on port: ${port}..`));
 
 const api = require('./api/projectmanager.js');
-app.get("*.*", express.static("../../../dist/project-manager", { maxAge: "1y" })); //sets up the URIs for collecting the resources angular needs from the root of dist/projectmanager
+app.get("*.*", express.static("dist/project-manager", { maxAge: "1y" })); //sets up the URIs for collecting the resources angular needs from the root of dist/projectmanager
 app.post("*", api);
 app.put("*", api);
 app.delete("*", api);
 app.get("/*", (req, res) => {
-  res.status(200).sendFile(`/`, { root: "../../../dist/project-manager" });
+  res.status(200).sendFile(`/`, { root: "dist/project-manager" });
 });
